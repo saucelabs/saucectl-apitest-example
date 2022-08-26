@@ -3,7 +3,7 @@ kind: apitest
 sauce:
   region: us-west-1
   metadata:
-    build: "$BUILD_ID"
+    build: "saucectl-example build"
   # tunnel:
   #   name: tunnelname
   #   owner: tunnelowner
