@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Saucectl RUN
-        uses: saucelabs/saucectl-run-action@v1
+        uses: saucelabs/saucectl-run-action@v3
         with:
           select-suite: 'Remote Suite #1'
 
@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Saucectl RUN
-        uses: saucelabs/saucectl-run-action@v1
+        uses: saucelabs/saucectl-run-action@v3
         with:
           select-suite: 'Dynamic Suite #1'
 
@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Saucectl RUN
-        uses: saucelabs/saucectl-run-action@v1
+        uses: saucelabs/saucectl-run-action@v3
         with:
           select-suite: 'Dynamic Suite #2'
 
@@ -52,7 +52,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Saucectl Install
-        uses: saucelabs/saucectl-run-action@v1
+        uses: saucelabs/saucectl-run-action@v3
         with:
           skip-run: true
 
