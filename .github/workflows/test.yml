@@ -19,6 +19,8 @@ jobs:
 
       - name: Saucectl RUN
         uses: saucelabs/saucectl-run-action@v3
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
           select-suite: 'Remote Suite #1'
 
@@ -30,6 +32,8 @@ jobs:
 
       - name: Saucectl RUN
         uses: saucelabs/saucectl-run-action@v3
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
           select-suite: 'Dynamic Suite #1'
 
@@ -41,6 +45,8 @@ jobs:
 
       - name: Saucectl RUN
         uses: saucelabs/saucectl-run-action@v3
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
           select-suite: 'Dynamic Suite #2'
 
@@ -53,6 +59,8 @@ jobs:
 
       - name: Saucectl Install
         uses: saucelabs/saucectl-run-action@v3
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
           skip-run: true
 
