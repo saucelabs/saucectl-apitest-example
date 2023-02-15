@@ -1,7 +1,7 @@
 apiVersion: v1alpha
 kind: apitest
 sauce:
-  region: eu-central-1
+  region: us-west-1
   metadata:
     build: "saucectl-example build"
   # tunnel:
