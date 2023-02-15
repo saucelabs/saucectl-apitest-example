@@ -18,7 +18,7 @@ suites:
     projectName: saucectl-apitest-example
     useRemoteTests: true
     tags:
-      - contract
+      - basic
 
   # Dynamic Suite #1 will run all tests found in rootDir ("."), and matching any of the "testMatch" values.
   # Those tests will be attached to the project "saucectl-apitest-example".
