@@ -1,0 +1,15 @@
+# Your first test: we just perform an HTTP request to an endpoint
+# By default we expect a request to respond with a valid HTTP status code
+# If so, the request is considered as "passed" and so will the test
+assertions:
+  - id: get
+    url: http://127.0.0.1:8080/data
+    var: payload
+    mode: json
+    children:
+      - id: header
+        name: key
+        value: ABC123
+configs: []
+
+# See https://github.com/saucelabs/saucectl-apix-example/blob/main/docs/README.md#unit-unityaml for more details about the syntax used in this file.

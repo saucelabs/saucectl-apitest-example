@@ -1,0 +1,12 @@
+assertions:
+  - id: comment
+    text: "Generate a phone number: ${F.phone()}"
+  - id: comment
+    text: "Generate a ZIP code: ${F.zipCode()}"
+  - id: comment
+    text: "Generate a Country Code: ${F.countryCode()}"
+  - id: comment
+    text: "Generate a Credit Card number: ${F.creditCardNumber()}"
+configs: []
+
+# See https://github.com/saucelabs/saucectl-apix-example/blob/main/docs/README.md#unit-unityaml for more details about the syntax used in this file.

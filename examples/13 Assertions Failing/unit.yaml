@@ -1,0 +1,20 @@
+assertions:
+  - id: get
+    url: https://m2-saucectl.load2.apifortress.com/api/retail/product
+    var: payload
+    mode: json
+    children:
+    - id: header
+      name: key
+      value: ABC123
+    # We proceed by adding some really basic assertions:
+    # - we expect the response payload (obtained by the above request) to exist
+    # - we expect the payload to be of type ARRAY
+  - id: assert-exists
+    expression: payload
+  - id: assert-is
+    expression: payload
+    type: boolean
+configs: []
+
+# See https://github.com/saucelabs/saucectl-apix-example/blob/main/docs/README.md#unit-unityaml for more details about the syntax used in this file.

@@ -1,0 +1,23 @@
+# We use the extension D to generate, parse or manipulate dates.
+assertions:
+  # The function .nowMillis() is useful to obtain the current Unix epoch in milliseconds.
+  # We may use a comment to print it on screen
+  - id: comment
+    text: ${D.nowMillis()}
+  # Now we can use .format() to display the current date in a different format
+  - id: comment
+    text: ${D.format(D.nowMillis(), 'yyyy-MM-DD HH:mm', 'America/New_York')}
+  # We can use .plusDays() to add a certain amount of days, and then .format to display the result
+  - id: comment
+    text: ${D.format(D.plusDays(D.nowMillis(), 35), 'yyyy-MM-DD HH:mm', 'America/New_York')}
+  # Now we use .parse() to obtain a valid epoch timestamp from a string and then we use again .format
+  # to display the result in the format we need
+  - id: set
+    var: parsedDateMillis
+    mode: object
+    object: D.parse('2019-04-19')
+  - id: comment
+    text: ${D.format(parsedDateMillis, 'yyyy-MMM-ddd')}
+configs: []
+
+# See https://github.com/saucelabs/saucectl-apix-example/blob/main/docs/README.md#unit-unityaml for more details about the syntax used in this file.

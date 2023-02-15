@@ -1,0 +1,47 @@
+assertions:
+  - id: get
+    children:
+      - id: header
+        name: key
+        value: ${key}
+    url: ${domain}${path}
+    var: payload
+    mode: json
+  - id: assert-exists
+    expression: payload
+  - id: assert-is
+    expression: payload
+    type: array
+    # The component underneath (set) creates a list of product IDs
+    # obtained by manipulating the payload of the preceeding GET request
+  - id: set
+    var: productIds
+    mode: lang
+    lang: javascript
+    body: |-
+      return payload
+        .filter(it => it.category === '1')
+        .map(it => it.id);
+    # Iterates over the temporary list created above and 
+    # using each Product ID performs a GET request to access the product-specific
+    # information and verify that the returned information looks as expected. 
+  - id: each
+    expression: productIds
+    children:
+      - id: get
+        children:
+          - id: header
+            name: key
+            value: ${key}
+        url: ${domain}${path}/${_1}
+        var: productPayload
+        mode: json
+      - id: assert-is
+        expression: productPayload.price
+        type: float
+      - id: assert-equals
+        expression: productPayload.category
+        value: "1"
+configs: []
+
+# See https://github.com/saucelabs/saucectl-apix-example/blob/main/docs/README.md#unit-unityaml for more details about the syntax used in this file.

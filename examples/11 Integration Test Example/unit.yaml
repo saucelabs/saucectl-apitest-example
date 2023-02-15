@@ -1,0 +1,119 @@
+assertions:
+  # The first request retrieves IDs needed for some subsequent requests
+  - id: get
+    url: ${domain}${path}
+    var: productsPayload
+    mode: json
+    children:
+      - id: header
+        name: key
+        value: ${key}
+  - id: assert-equals
+    expression: productsPayload_response.statusCode
+    comment: statusCode is equals to 200
+    value: 200
+  - id: assert-equals
+    expression: productsPayload_response.headers['Content-Type']
+    comment: Content-Type is the expected one
+    value: application/json;charset=utf-8
+  - id: assert-is
+    expression: productsPayload
+    comment: payload is expected to be an array
+    type: array
+  # We iterate on each item in the payload picking up just one in every iteration
+  - id: each
+    children:
+      - id: assert-exists
+        expression: _1.category
+        comment: category item must exists
+      - id: assert-is
+        expression: _1.color
+        comment: color item is an array
+        type: array
+      - id: assert-exists
+        expression: _1.createdAt
+        comment: createdAt item must exists
+      - id: assert-exists
+        expression: _1.description
+        comment: description item must exists
+      - id: assert-is
+        expression: _1.imageURL
+        comment: imageURL item is a valid url
+        type: url
+      - id: assert-exists
+        expression: _1.name
+        comment: name item must exists
+      - id: assert-is
+        expression: _1.price
+        comment: price item is a decimal value
+        type: float
+      - id: assert-is
+        expression: _1.quantity
+        comment: quantity item is an integer value
+        type: integer
+      - id: assert-exists
+        expression: _1.updatedAt
+        comment: updatedAt item must exists
+      - id: assert-is
+        expression: _1.id
+        comment: id item is an integer value
+        type: integer
+      # We save the ID in a variable to then use it for the subsequent requests
+      - id: set
+        var: id
+        mode: string
+        value: ${_1.id}
+      - id: comment
+        text: "id is: ${id}"
+      - id: get
+        url: ${domain}${path}/${id}
+        var: productPayload
+        mode: json
+        children:
+          - id: header
+            name: key
+            value: ${key}
+      - id: assert-exists
+        expression: productPayload.createdAt
+        comment: createdAt item must exists
+      - id: assert-is
+        expression: productPayload.quantity
+        comment: quantity item is an integer value
+        type: integer
+      - id: assert-is
+        expression: productPayload.color
+        comment: color item is an array
+        type: array
+      - id: assert-is
+        expression: productPayload.price
+        comment: price item is a decimal value
+        type: float
+      - id: assert-is
+        expression: productPayload.imageURL
+        comment: imageURL item is a valid url
+        type: url
+      - id: assert-exists
+        expression: productPayload.name
+        comment: name item must exists
+      - id: assert-exists
+        expression: productPayload.description
+        comment: description item must exists
+      - id: assert-is
+        expression: productPayload.id
+        comment: id item is an integer value
+        type: integer
+      - id: assert-equals
+        expression: productPayload.id
+        comment: id value is the expected one
+        value: ${id}
+        type: number
+      - id: assert-exists
+        expression: productPayload.category
+        comment: category item must exists
+      - id: assert-exists
+        expression: productPayload.updatedAt
+        comment: updatedAt item must exists
+    expression: productsPayload.pick(1)
+configs: []
+
+# See https://github.com/saucelabs/saucectl-apix-example/blob/main/docs/README.md#unit-unityaml for more details about the syntax used in this file.

@@ -1,0 +1,20 @@
+# The test below only differs from the previous one in the usage of the input variables (input.yaml file)
+# and then referencing those variables in the test, rather than having URLs and Tokens in the test itself.
+# That might help in adding some abstraction and use the same test against different API domains (e.g. staging vs production)
+assertions:
+  - id: get
+    url: ${domain}${path}
+    var: payload
+    mode: json
+    children:
+      - id: header
+        name: key
+        value: ${key}
+  - id: assert-exists
+    expression: payload
+  - id: assert-is
+    expression: payload
+    type: array
+configs: []
+
+# See https://github.com/saucelabs/saucectl-apix-example/blob/main/docs/README.md#unit-unityaml for more details about the syntax used in this file.
