@@ -1,0 +1,50 @@
+assertions:
+  - id: get
+    children:
+      - id: queryParam
+        name: tags
+        value: ${tags}
+      - id: queryParam
+        name: limit
+        value: ${limit}
+      - id: header
+        name: key
+        value: sit reprehenderit minim
+      - id: header
+        name: Authorization
+        value: Basic ${Auth.basic('username', 'password')}
+    url: ${protocol}${domain}${endpoint}
+    var: payload
+    mode: json
+  - id: assert-valid-jsonschema
+    expression: payload_source
+    body: |-
+      {
+          "type": "array",
+          "items": {
+              "allOf": [{
+                  "type": "object",
+                  "required": ["name"],
+                  "properties": {
+                      "name": {
+                          "type": "string"
+                      },
+                      "tag": {
+                          "type": "string"
+                      }
+                  }
+              }, {
+                  "type": "object",
+                  "required": ["id"],
+                  "properties": {
+                      "id": {
+                          "type": "integer",
+                          "format": "int64"
+                      }
+                  }
+              }]
+          }
+      }
+configs: []
+
+# See https://github.com/saucelabs/saucectl-apix-example/blob/main/docs/README.md#unit-unityaml for more details about the syntax used in this file.

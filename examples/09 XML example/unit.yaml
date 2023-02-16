@@ -1,0 +1,20 @@
+assertions:
+  - id: get
+    children: []
+    url: ${domain}${endpoint}
+    var: payload
+    mode: xml
+  - id: assert-equals
+    expression: payload_response.headers['Content-Type']
+    value: text/xml;charset=utf-8
+  - id: assert-exists
+    expression: payload
+  - id: assert-exists
+    expression: payload['soap:Body']
+  - id: assert-exists
+    expression: payload['soap:Body']['m:GetPrice']
+  - id: assert-exists
+    expression: payload['soap:Body']['m:GetPrice']['m:Item']
+configs: []
+
+# See https://github.com/saucelabs/saucectl-apix-example/blob/main/docs/README.md#unit-unityaml for more details about the syntax used in this file.

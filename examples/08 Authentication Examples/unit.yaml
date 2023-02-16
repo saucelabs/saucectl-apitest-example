@@ -1,0 +1,20 @@
+# Another useful extension is WSCrypto: we may use it to create a Basic auth token
+assertions:
+  - id: set
+    var: auth
+    mode: string
+    value: ${WSCrypto.base64('encode','username:password')}
+  - id: get
+    url: ${domain}${path}
+    var: payload
+    mode: json
+    children:
+      - id: header
+        name: key
+        value: ${key}
+      - id: header
+        name: Authorization
+        value: Basic ${auth}
+configs: []
+
+# See https://github.com/saucelabs/saucectl-apix-example/blob/main/docs/README.md#unit-unityaml for more details about the syntax used in this file.

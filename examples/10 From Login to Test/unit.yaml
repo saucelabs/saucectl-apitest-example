@@ -1,0 +1,78 @@
+assertions:
+  # First, a first request to the authentication API endpoint is made
+  - id: post
+    children:
+      - id: header
+        name: key
+        value: ${key}
+      - id: body
+        contentType: application/json
+        content: |-
+          {
+            "user": "${username}",
+            "password": "${password}"
+          }
+    url: ${domain}${authenticationPath}
+    var: loginPayload
+    mode: json
+  # The access token is retrieved inside the authentication response payload and saved into a variable
+  - id: set
+    var: accessToken
+    mode: string
+    value: ${loginPayload.Token}
+  # We use a comment to print the value of the token, just for a debugging purpose
+  - id: comment
+    text: "Token: ${accessToken}"
+  - id: put
+  # Then we proceed with our test: through some subsequent requests, something is added to the cart
+  # and then we verify that every product was actually added and each field of each item satisfy the expectations
+    children:
+      - id: header
+        name: key
+        value: ${key}
+      - id: header
+        name: usertoken
+        value: ${accessToken}
+      - id: body
+        contentType: application/json
+        content: |-
+          {
+              "1": 1,
+              "2": 2,
+              "3": 3,
+              "9": 3,
+              "8": 1
+          }
+    url: ${domain}${cartPath}
+    var: payload
+    mode: json
+  - id: get
+    children:
+      - id: header
+        name: key
+        value: ${key}
+      - id: header
+        name: usertoken
+        value: ${accessToken}
+    url: ${domain}${cartPath}
+    var: cartPayload
+    mode: json
+  - id: comment
+    text: ${JSON.stringify(cartPayload, null, '   ')}
+  - id: each
+    children:
+      - id: assert-is
+        expression: _1.id
+        comment: id item is an integer value
+        type: integer
+      - id: assert-exists
+        expression: _1.item
+        comment: item exists
+      - id: assert-is
+        expression: _1.quantity
+        comment: quantitiy item is an integer value
+        type: integer
+    expression: cartPayload
+configs: []
+
+# See https://github.com/saucelabs/saucectl-apix-example/blob/main/docs/README.md#unit-unityaml for more details about the syntax used in this file.

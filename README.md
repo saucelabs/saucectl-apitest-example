@@ -4,8 +4,9 @@ Example running saucectl with api testing.
 
 ## What You'll Need
 
-The steps below illustrate one of the quickest ways to get set up. If you'd like a more in-depth guide, please check out
+- The steps below illustrate how to get set up. If you'd like a more in-depth guide, please check out
 our [documentation](https://docs.saucelabs.com/dev/cli/saucectl/#installing-saucectl).
+- You can also get familiar with our test script syntax by following our [documentation](https://github.com/saucelabs/saucectl-apitest-example/blob/main/docs/README.md).
 
 ### Install `saucectl`
 
@@ -21,11 +22,18 @@ saucectl configure
 
 ## Running The Examples
 
+**Note:** A Project needs to be existing in your account with the `saucectl-apitest-example` name.
+
 ```shell
 saucectl run
 ```
 
-**Note** The API project is under the SauceLabs org so you'll need to be a member of the org to run the tests.
+#### Exit code
+
+`saucectl` will give a non-zero exit code if any of the tests fails. Otherwise, it will be returning 0.
+
+### Test results
+You will have a summary of the test results along with the test duration of each test.
 
 ## The Config
 

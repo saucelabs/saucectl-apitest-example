@@ -8,16 +8,40 @@ sauce:
   #   name: tunnelname
   #   owner: tunnelowner
 
+rootDir: .
+
 suites:
-  - name: "run all tests for saucectl-example project"
-    hookId: 26ccab85-a0d9-499b-ae7d-05a8279746ea
-
-  - name: "run a tag for saucectl-example project"
-    hookId: 26ccab85-a0d9-499b-ae7d-05a8279746ea
+  # Remote Suite #1 will run in parallel all tests:
+  # - Published in project "saucectl-apitest-example"
+  # - Having the "contract" tag
+  - name: "Remote Suite #1"
+    projectName: saucectl-apitest-example
+    useRemoteTests: true
     tags:
-      - flakey
+      - basic
 
-  - name: "run a single test for saucectl-example project"
-    hookId: 26ccab85-a0d9-499b-ae7d-05a8279746ea
-    tests:
-      - 6308e6d4c08b875edeee138e
+  # Dynamic Suite #1 will run all tests found in rootDir ("."), and matching any of the "testMatch" values.
+  # Those tests will be attached to the project "saucectl-apitest-example".
+  - name: "Dynamic Suite #1"
+    projectName: saucectl-apitest-example
+    testMatch:
+      - 01 Basic Request
+      - 02 First Assertions
+      - 03 Input and Variables
+      - 04 Flow Control
+      - 05 Variables and Data Manipulation
+
+  # Dynamic Suite #2 will run all tests found in rootDir ("."), and matching any of the "testMatch" values.
+  # Those tests will be attached to the project "saucectl-apitest-example".
+  - name: "Dynamic Suite #2"
+    projectName: saucectl-apitest-example
+    testMatch:
+      - XML*
+
+  # Failing Suite #1 will run all tests found in rootDir ("."), and matching any of the "testMatch" values.
+  # Those tests will be attached to the project "saucectl-apitest-example".
+  # In this specific example, the test is designed to fail.
+  - name: "Failing Suite #1"
+    projectName: saucectl-apitest-example
+    testMatch:
+      - 13 Assertions Failing
