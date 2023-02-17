@@ -30,7 +30,7 @@ saucectl run
 
 #### Exit code
 
-`saucectl` will give a non-zero exit code if any of the tests fails. Otherwise, it will be returning 0.
+`saucectl` will give a non-zero exit code if any of the tests fail. Otherwise, it will be returning 0.
 
 ### Test results
 You will have a summary of the test results along with the test duration of each test.
