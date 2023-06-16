@@ -12,7 +12,7 @@ pool:
 steps:
 
 - task: CmdLine@2
-  displayName: 'Install sauceCtl'
+  displayName: 'Install saucectl'
   inputs:
     script: |
       sudo sh -c 'curl -L https://saucelabs.github.io/saucectl/install | bash -s -- -b /usr/local/bin'
