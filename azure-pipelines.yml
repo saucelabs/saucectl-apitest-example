@@ -21,7 +21,6 @@ steps:
 - task: CmdLine@2
   displayName: 'Saucectl RUN - Config Driven'
   inputs:
-    workingDirectory: v1
     script: |
       saucectl run
   env:
